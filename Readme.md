@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Семён Уланков](https://up.htmlacademy.ru/javascript/24/user/499275).
-* Наставник: `Неизвестно`.
+* Наставник: [Егор Дьяченко](https://htmlacademy.ru/profile/semperhomolupus).
 
 ---
 
