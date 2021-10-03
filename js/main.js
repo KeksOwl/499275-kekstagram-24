@@ -62,10 +62,9 @@ const SURNAMES = [
   'Гугленко',
 ];
 
-const ARR_COMMENTS_COUNT = 4; // Количество комментариев
-const ARR_OBJECTS_COUNT = 25; // Количество генерируемых объектов
-const ARR_TOTAL_COMMENTS_COUNT = ARR_COMMENTS_COUNT * ARR_OBJECTS_COUNT; // Количество всех комментариев на сайте
-const arrDescriptionIds = Array.from({length: ARR_OBJECTS_COUNT}, (_, i) => i + 1); // Неповторяющиеся идентификаторы описания от 1 до 25. Подглядел на https://coderoad.ru/3746725/%D0%9A%D0%B0%D0%BA-%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D1%82%D1%8C-%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2-%D1%81%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D1%89%D0%B8%D0%B9-1-N#:~:text=Array.from(%7Blength%3A%2010%7D%2C%20(_%2C%20i)%20%3D%3E%20i%20%2B%201)
+const COMMENTS_COUNT = 4; // Количество комментариев
+const OBJECTS_COUNT = 25; // Количество генерируемых объектов
+const TOTAL_COMMENTS_COUNT = COMMENTS_COUNT * OBJECTS_COUNT; // Количество всех комментариев на сайте
 const arrCommentsIds = []; // Массив для хранения случайных неповторяющихся ID (комментариев)
 
 // Функция поиска случайного элемента массива
@@ -74,38 +73,43 @@ const getRandomArrayElement = (elements) => {
 };
 
 // Функция генерации случайных неповторяющихся чисел в массиве. Подсмотрел на https://myrusakov.ru/js-random-numbers.html#:~:text=%D0%94%D0%BB%D1%8F%20%D0%B1%D0%BE%D0%BB%D0%B5%D0%B5%20%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%B8%D1%85%20%D0%BD%D0%B0%D0%B1%D0%BE%D1%80%D0%BE%D0%B2%20%D1%87%D0%B8%D1%81%D0%B5%D0%BB%3A%20%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%B9%D1%82%D0%B5%20%D0%B8%20%D0%B7%D0%B0%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%20%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2%20%D1%81%D0%BB%D1%83%D1%87%D0%B0%D0%B9%D0%BD%D1%8B%D0%BC%D0%B8%20%D1%86%D0%B5%D0%BB%D1%8B%D0%BC%D0%B8%20%D1%87%D0%B8%D1%81%D0%BB%D0%B0%D0%BC%D0%B8%2C%20%D0%BE%D1%82%D0%BA%D0%BB%D0%BE%D0%BD%D1%8F%D1%8F%20%D0%BB%D1%8E%D0%B1%D0%BE%D0%B5%2C%20%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D0%BE%D0%B5%20%D1%83%D0%B6%D0%B5%20%D0%B1%D1%8B%D0%BB%D0%BE%20%D1%80%D0%B0%D0%BD%D0%B5%D0%B5%20%D1%81%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE%3A
-// while (arrCommentsIds.length < ARR_TOTAL_COMMENTS_COUNT) {
-//   const commentId = getRandomIntFromRange(0, 1e11);
-//   let commentFoundCheck = false;
-//   for (let i = 0; i < arrCommentsIds.length; i++) {
-//     if (arrCommentsIds[i] === commentId) {
-//       commentFoundCheck = true;
-//       break;
-//     }
-//   }
-//   if (!commentFoundCheck) { arrCommentsIds[arrCommentsIds.length]=commentId; }
-// }
+while (arrCommentsIds.length < TOTAL_COMMENTS_COUNT) {
+  const commentId = getRandomIntFromRange(0, 1e11);
+  let commentFoundCheck = false;
+  for (let i = 0; i < arrCommentsIds.length; i++) {
+    if (arrCommentsIds[i] === commentId) {
+      commentFoundCheck = true;
+      break;
+    }
+  }
+  if (!commentFoundCheck) { arrCommentsIds[arrCommentsIds.length]=commentId; }
+}
 
-// Функция для создания комментариев к объекту (фотографии)
-// const createComment = () => {
-//   return {
-//     id: arrCommentsIds[], // Доработать (вызов текущего элемента массива)
-//     avatar: 'img/avatar-' + getRandomIntFromRange(1, 6) + '.svg',
-//     message: getRandomArrayElement(MESSAGES),
-//     name: getRandomArrayElement(NAMES) + getRandomArrayElement(SPACES) + getRandomArrayElement(SURNAMES),
-//   };
-// };
+// Переменная для хранения текущего «набора» комментариев (для индексации массива неповторяющихся id)
+let commentIdCounter = 0;
 
-// Функция для создания объекта (фотографии)
-// const createObject = () => {
-//   return {
-//     id: arrDescriptionIds[], // Доработать (вызов текущего элемента массива)
-//     url: 'photos/' + arrDescriptionIds[] + '.jpg', // Доработать (вызов текущего элемента массива)
-//     description: getRandomArrayElement(DESCRIPTIONS),
-//     likes: getRandomIntFromRange(15, 200),
-//     comments: Array.from({length: ARR_COMMENTS_COUNT}, createComment),
-//   };
-// };
+// Функция для создания комментариев к объекту
+function createComment() {
+  const arrayComments = new Array(COMMENTS_COUNT).fill().map((j, index) => ({
+    id: arrCommentsIds[commentIdCounter + index + 1],
+    avatar: `img/avatar-${getRandomIntFromRange(1, 6)}.svg`,
+    message: getRandomArrayElement(MESSAGES),
+    name: getRandomArrayElement(NAMES) + getRandomArrayElement(SPACES) + getRandomArrayElement(SURNAMES),
+  }));
+  commentIdCounter += COMMENTS_COUNT;
+  return arrayComments;
+}
 
-// Функция для создания массива из 25 сгенерированных объектов
-// const arrObjects = Array.from({length: ARR_OBJECTS_COUNT}, createObject);
+// Функция для создания объектов (фотографий)
+function createObject() {
+  const arrayDescriptions = new Array(OBJECTS_COUNT).fill().map((j, index) => ({
+    id: index + 1,
+    url: `photos/${index + 1}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomIntFromRange(15, 200),
+    comments: createComment(),
+  }));
+  return arrayDescriptions;
+}
+
+console.log(createObject()); // Временный вызов функции в консоль
