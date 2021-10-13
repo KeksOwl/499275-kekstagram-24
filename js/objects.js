@@ -14,4 +14,4 @@ function createObject() {
   return arrayObjects;
 }
 
-console.log(createObject()); // Временный вызов функции в консоль
+export {createObject};
