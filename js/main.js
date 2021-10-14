@@ -1,2 +1,2 @@
 import './objects.js';
-import './pictures.js';
+import './gallery.js';

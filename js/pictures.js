@@ -3,7 +3,6 @@ import {createObject} from './objects.js';
 const picturesBlock = document.querySelector('.pictures'); // Блок картинок
 
 const picturesTemplate = document.querySelector('#picture').content; // Фрагмент содержимого шаблона картинок
-// const fragment = document.createDocumentFragment();
 
 const pictures = createObject();
 
@@ -18,3 +17,5 @@ pictures.forEach(({url, comments, likes}) => {
 });
 
 picturesBlock.appendChild(picturesFragment);
+
+export {picturesBlock, pictures};
