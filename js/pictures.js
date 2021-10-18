@@ -2,7 +2,10 @@ import {createObject} from './objects.js';
 
 const picturesBlock = document.querySelector('.pictures'); // Блок картинок
 
-const picturesTemplate = document.querySelector('#picture').content; // Фрагмент содержимого шаблона картинок
+// Фрагмент содержимого шаблона картинок
+const picturesTemplate = document.querySelector('#picture')
+  .content
+  .querySelector('.picture');
 
 const pictures = createObject();
 
