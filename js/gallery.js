@@ -6,7 +6,7 @@ import {isEscapeKey} from './util.js';
 
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel'); // «Крестик» для закрытия полноразмерного изображения
 
-// Обработчик закрытия окна
+// Обработчик закрытия окна (галереи)
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -24,7 +24,9 @@ const closeBigPicture = () => {
 
 // Событие показа модального окна
 picturesBlock.addEventListener('click', (evt) => {
-  openBigPicture(evt);
+  if (evt.target.matches('.picture') || evt.target.matches('.picture__img')) {
+    openBigPicture(evt);
+  }
 });
 
 // Событие закрытия модального окна при нажатии на «крестик»

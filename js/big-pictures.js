@@ -15,45 +15,43 @@ const bigPictureDescription = bigPicture.querySelector('.social__caption'); // �
 
 // Функция открытия модального окна
 const openBigPicture = (evt) => {
-  if (evt.target.matches('img') || evt.target.matches('a')) {
-    document.body.classList.add('modal-open'); // Отключение скролла на странице
-    bigPicture.classList.remove('hidden'); // Открытие модального окна
-    bigPictureCommentsCounter.classList.add('hidden'); // Счётчик комментариев
-    bigPictureCommentsLoader.classList.add('hidden'); // Загрузка новых комментариев
+  document.body.classList.add('modal-open'); // Отключение скролла на странице
+  bigPicture.classList.remove('hidden'); // Открытие модального окна
+  bigPictureCommentsCounter.classList.add('hidden'); // Счётчик комментариев
+  bigPictureCommentsLoader.classList.add('hidden'); // Загрузка новых комментариев
 
-    let pictureSrc; // Переменная ссылки на изображение
+  let pictureSrc; // Переменная ссылки на изображение
 
-    if (evt.target.matches('img')) {
-      pictureSrc = bigPictureImage.src = evt.target.src; // Значение переменной при клике
-    } else if (evt.target.matches('a')) {
-      pictureSrc = bigPictureImage.src = evt.target.querySelector('.picture__img').src; // Значение переменной при нажатии на Enter
-    }
-
-    // Поиск текущего изображения
-    const pictureCurrent = pictures.find((picture) => {
-      if (pictureSrc.indexOf(picture.url) !== -1) {
-        return true;
-      }
-    });
-
-    bigPictureLikesCount.textContent = pictureCurrent.likes; // Лайки текущего изображения
-    bigPictureCommentsCount.textContent = pictureCurrent.comments.length; // Количество комментариев текущего изображения
-    bigPictureDescription.textContent = pictureCurrent.description; // Описание текущего изображения
-
-    const pictureCurrentComments = pictureCurrent.comments; // Комментарии текущего изображения
-
-    pictureCurrentComments.forEach(({avatar, name, message}) => {
-      bigPictureComments.textContent = ''; // Очистка дефолтных комментариев из разметки
-      const pictureComments = bigPictureCommentsTemplate.cloneNode(true);
-      pictureComments.querySelector('.social__picture').src = avatar;
-      pictureComments.querySelector('.social__picture').alt = name;
-      pictureComments.querySelector('.social__text').textContent = message;
-      bigPictureCommentsFragment.appendChild(pictureComments);
-    });
-    bigPictureComments.appendChild(bigPictureCommentsFragment);
-
-    document.addEventListener('keydown', onPopupEscKeydown); // Закрытие модального окна при нажатии на ESC
+  if (evt.target.matches('img')) {
+    pictureSrc = bigPictureImage.src = evt.target.src; // Значение переменной при клике
+  } else if (evt.target.matches('a')) {
+    pictureSrc = bigPictureImage.src = evt.target.querySelector('.picture__img').src; // Значение переменной при нажатии на Enter
   }
+
+  // Поиск текущего изображения
+  const pictureCurrent = pictures.find((picture) => {
+    if (pictureSrc.indexOf(picture.url) !== -1) {
+      return true;
+    }
+  });
+
+  bigPictureLikesCount.textContent = pictureCurrent.likes; // Лайки текущего изображения
+  bigPictureCommentsCount.textContent = pictureCurrent.comments.length; // Количество комментариев текущего изображения
+  bigPictureDescription.textContent = pictureCurrent.description; // Описание текущего изображения
+
+  const pictureCurrentComments = pictureCurrent.comments; // Комментарии текущего изображения
+
+  pictureCurrentComments.forEach(({avatar, name, message}) => {
+    bigPictureComments.textContent = ''; // Очистка дефолтных комментариев из разметки
+    const pictureComments = bigPictureCommentsTemplate.cloneNode(true);
+    pictureComments.querySelector('.social__picture').src = avatar;
+    pictureComments.querySelector('.social__picture').alt = name;
+    pictureComments.querySelector('.social__text').textContent = message;
+    bigPictureCommentsFragment.appendChild(pictureComments);
+  });
+  bigPictureComments.appendChild(bigPictureCommentsFragment);
+
+  document.addEventListener('keydown', onPopupEscKeydown); // Закрытие модального окна при нажатии на ESC
 };
 
 export {bigPicture, openBigPicture};
