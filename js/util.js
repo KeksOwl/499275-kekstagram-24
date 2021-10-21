@@ -13,4 +13,7 @@ checkStringMaxLength('hello', 10); // Временный вызов функци
 // Функция поиска случайного элемента массива
 const getRandomArrayElement = (elements) => elements[getRandomIntFromRange(0, elements.length - 1)];
 
-export {getRandomIntFromRange, getRandomArrayElement};
+// Проверка нажатия клавиши Escape
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomIntFromRange, getRandomArrayElement, isEscapeKey};
