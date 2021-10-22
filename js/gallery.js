@@ -1,7 +1,7 @@
 import './pictures.js';
 import './big-pictures.js';
 import {picturesBlock} from './pictures.js';
-import {bigPicture, openBigPicture} from './big-pictures.js';
+import {bigPicture, openBigPicture, bigPictureCommentsLoader} from './big-pictures.js';
 import {isEscapeKey} from './util.js';
 
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel'); // «Крестик» для закрытия полноразмерного изображения
@@ -19,6 +19,7 @@ const onPopupEscKeydown = (evt) => {
 const closeBigPicture = () => {
   document.body.classList.remove('modal-open');
   bigPicture.classList.add('hidden');
+  bigPictureCommentsLoader.classList.remove('hidden');
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
