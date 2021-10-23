@@ -529,24 +529,37 @@ main {
 
 .effect-level {
   position: absolute;
-  bottom: 10px;
+  bottom: 9px;
   left: 50%;
 
+  padding: 7px 11px 0;
+
   width: 495px;
-  height: 33px;
+  height: 34px;
 
   font-size: 12px;
-  line-height: 42px;
   text-align: center;
   color: #ffffff;
   white-space: nowrap;
 
   background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 33px;
+  border-radius: 34px;
 
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
+}
+
+.effect-level .noUi-target {
+  border-radius: 16px;
+}
+
+.effect-level .noUi-connects {
+  border-radius: 13px;
+}
+
+.effect-level .noUi-connect {
+  background: #ffe753;
 }
 
 .effect-level__value {
@@ -750,15 +763,6 @@ main {
           transform: translateY(1px);
 }
 
-
-/*
-* Рамка ошибки ввода поля
-*/
-
-.img-upload__error {
-  border: 2px solid rgba(255, 28, 28, 0.616);
-  outline: 2px solid rgba(255, 28, 28, 0.616);
-}
 
 /* Окно полноэкранного просмотра изображения
    ========================================================================== */
