@@ -1,7 +1,11 @@
+import './../nouislider/nouislider.js';
 import './form-validity.js';
 import './scale.js';
+import './filters.js';
 import {isEscapeKey} from './util.js';
 import {uploadForm, uploadFile, uploadPopup, uploadOpen, hashtagField, descriptionField} from './form-validity.js';
+import {scaleControlSmaller, scaleControlBigger, scaleSmaller, scaleBigger} from './scale.js';
+import {onFilterChange} from './filters.js';
 
 const uploadCancel = uploadForm.querySelector('#upload-cancel'); // «Крестик» для закрытия всплывающего окна
 
@@ -23,6 +27,9 @@ const uploadClose = () => {
   hashtagField.value = '';
   descriptionField.value = '';
 
+  scaleControlSmaller.removeEventListener('click', scaleSmaller);
+  scaleControlBigger.removeEventListener('click', scaleBigger);
+  uploadForm.removeEventListener('change', onFilterChange);
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
