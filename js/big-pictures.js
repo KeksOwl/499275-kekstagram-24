@@ -1,4 +1,4 @@
-import {pictures} from './pictures.js';
+import {renderPictures} from './pictures.js';
 import {onPopupEscKeydown} from './gallery.js';
 import {SHOWN_COMMENTS_MAX} from './data.js';
 
@@ -18,8 +18,6 @@ const bigPictureDescription = bigPicture.querySelector('.social__caption'); // �
 const openBigPicture = (evt) => {
   document.body.classList.add('modal-open'); // Отключение скролла на странице
   bigPicture.classList.remove('hidden'); // Открытие модального окна
-  // bigPictureCommentsCounter.classList.add('hidden'); // Счётчик комментариев
-  // bigPictureCommentsLoader.classList.add('hidden'); // Загрузка новых комментариев
 
   let pictureSrc; // Переменная ссылки на изображение
 
@@ -30,7 +28,7 @@ const openBigPicture = (evt) => {
   }
 
   // Поиск текущего изображения
-  const pictureCurrent = pictures.find((picture) => pictureSrc.indexOf(picture.url) !== -1);
+  // const pictureCurrent = renderPictures.find((picture) => pictureSrc.indexOf(picture.url) !== -1);
 
   bigPictureLikesCount.textContent = pictureCurrent.likes; // Лайки текущего изображения
   bigPictureCommentsCount.textContent = pictureCurrent.comments.length; // Количество комментариев текущего изображения
@@ -60,7 +58,7 @@ const openBigPicture = (evt) => {
   let shownComments = SHOWN_COMMENTS_MAX; // Количество отображённых комментариев
 
   // Обработчик кнопки «загрузить ещё»
-  const test = () => {
+  const showMore = () => {
     for (let i = 1; i <= SHOWN_COMMENTS_MAX; i++) {
       if (shownComments < pictureCurrent.comments.length) {
         bigPictureCommentsItems[shownComments].classList.remove('hidden');
@@ -80,10 +78,10 @@ const openBigPicture = (evt) => {
     shownComments = pictureCurrent.comments.length;
     bigPictureCommentsCounter.textContent = `${shownComments} из ${bigPictureCommentsCount.textContent} комментариев`;
   } else if (!bigPictureCommentsLoader.classList.contains('hidden')) {
-    bigPictureCommentsLoader.addEventListener('click', test);
+    bigPictureCommentsLoader.addEventListener('click', showMore);
     bigPictureCommentsCounter.textContent = `${shownComments} из ${bigPictureCommentsCount.textContent} комментариев`;
   } else {
-    bigPictureCommentsLoader.removeEventListener('click', test);
+    bigPictureCommentsLoader.removeEventListener('click', showMore);
   }
 
   document.addEventListener('keydown', onPopupEscKeydown); // Закрытие модального окна при нажатии на ESC
