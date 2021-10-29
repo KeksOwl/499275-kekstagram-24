@@ -124,4 +124,4 @@ const onFilterChange = (evt) => {
   }
 };
 
-export {onFilterChange};
+export {onFilterChange, uploadPreview, sliderElement, valueElement};
