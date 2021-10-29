@@ -15,13 +15,13 @@ const scaleSmaller = () => {
 
   if (scaleControlValue.value === '75%') {
     uploadPreview.style.transform = 'scale(0.75)';
-    scaleValueHidden.value = 0.75;
+    scaleValueHidden.value = 75;
   } else if (scaleControlValue.value === '50%') {
     uploadPreview.style.transform = 'scale(0.5)';
-    scaleValueHidden.value = 0.5;
+    scaleValueHidden.value = 50;
   } else if (scaleControlValue.value === '25%') {
     uploadPreview.style.transform = 'scale(0.25)';
-    scaleValueHidden.value = 0.25;
+    scaleValueHidden.value = 25;
   }
 };
 
@@ -32,14 +32,14 @@ const scaleBigger = () => {
 
   if (scaleControlValue.value === '100%') {
     uploadPreview.style.transform = 'scale(1)';
-    scaleValueHidden.value = 1;
+    scaleValueHidden.value = 100;
   } else if (scaleControlValue.value === '75%') {
     uploadPreview.style.transform = 'scale(0.75)';
-    scaleValueHidden.value = 0.75;
+    scaleValueHidden.value = 75;
   } else if (scaleControlValue.value === '50%') {
     uploadPreview.style.transform = 'scale(0.5)';
-    scaleValueHidden.value = 0.5;
+    scaleValueHidden.value = 50;
   }
 };
 
-export {scaleControlSmaller, scaleControlBigger, scaleSmaller, scaleBigger};
+export {scaleControlSmaller, scaleControlBigger, scaleSmaller, scaleBigger, scaleValueHidden, scaleControlValue};

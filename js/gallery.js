@@ -24,15 +24,17 @@ const closeBigPicture = () => {
 };
 
 // Событие показа модального окна
-picturesBlock.addEventListener('click', (evt) => {
-  if (evt.target.matches('.picture') || evt.target.matches('.picture__img')) {
-    openBigPicture(evt);
-  }
-});
+const addPicturesClickEvent = (pictures) => {
+  picturesBlock.addEventListener('click', (evt) => {
+    if (evt.target.matches('.picture') || evt.target.matches('.picture__img')) {
+      openBigPicture(evt, pictures);
+    }
+  });
+};
 
 // Событие закрытия модального окна при нажатии на «крестик»
 bigPictureCancel.addEventListener('click', () => {
   closeBigPicture();
 });
 
-export {onPopupEscKeydown};
+export {onPopupEscKeydown, addPicturesClickEvent};

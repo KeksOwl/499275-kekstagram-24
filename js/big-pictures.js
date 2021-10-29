@@ -1,4 +1,3 @@
-import {renderPictures} from './pictures.js';
 import {onPopupEscKeydown} from './gallery.js';
 import {SHOWN_COMMENTS_MAX} from './data.js';
 
@@ -15,7 +14,7 @@ const bigPictureCommentsFragment = document.createDocumentFragment(); // Фра�
 const bigPictureDescription = bigPicture.querySelector('.social__caption'); // Описание полноразмерного изображения
 
 // Функция открытия модального окна
-const openBigPicture = (evt) => {
+const openBigPicture = (evt, pictures) => {
   document.body.classList.add('modal-open'); // Отключение скролла на странице
   bigPicture.classList.remove('hidden'); // Открытие модального окна
 
@@ -28,7 +27,7 @@ const openBigPicture = (evt) => {
   }
 
   // Поиск текущего изображения
-  // const pictureCurrent = renderPictures.find((picture) => pictureSrc.indexOf(picture.url) !== -1);
+  const pictureCurrent = pictures.find((picture) => pictureSrc.indexOf(picture.url) !== -1);
 
   bigPictureLikesCount.textContent = pictureCurrent.likes; // Лайки текущего изображения
   bigPictureCommentsCount.textContent = pictureCurrent.comments.length; // Количество комментариев текущего изображения
