@@ -59,7 +59,3 @@ const comparePicturesComments = (pictureA, pictureB) => {
 };
 
 export {sortBlock, sortInput, comparePicturesIds, comparePicturesComments, sortDefaultClick, sortRandomClick, sortDiscussedClick};
-
-// Воспользуйтесь приёмом «устранение дребезга»,
-// чтобы при переключении фильтра обновление списка элементов,
-// подходящих под фильтры, происходило не чаще, чем один раз в полсекунды. (500 ms)

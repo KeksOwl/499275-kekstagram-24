@@ -6,6 +6,7 @@ import {uploadForm, uploadFile, uploadPopup, uploadOpen, hashtagField, descripti
 import {scaleControlSmaller, scaleControlBigger, scaleSmaller, scaleBigger, scaleValueHidden, scaleControlValue} from './scale.js';
 import {onFilterChange, sliderElement, uploadPreview, valueElement} from './filters.js';
 import {sendData} from './api.js';
+import {FILE_TYPES} from './data.js';
 
 const uploadCancel = uploadForm.querySelector('#upload-cancel'); // «Крестик» для закрытия всплывающего окна
 
@@ -46,7 +47,17 @@ const uploadClose = () => {
 };
 
 // Событие показа модального окна
-uploadFile.addEventListener('change', uploadOpen);
+uploadFile.addEventListener('change', () => {
+  const file = uploadFile.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((item) => fileName.endsWith(item));
+
+  if (matches) {
+    uploadPreview.src = URL.createObjectURL(file);
+  }
+  uploadOpen();
+});
 
 // Событие закрытия модального окна при нажатии на «крестик»
 uploadCancel.addEventListener('click', () => {
