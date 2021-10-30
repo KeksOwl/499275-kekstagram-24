@@ -1,10 +1,12 @@
 import {showMessage} from './util.js';
+import {sortBlock} from './sort.js';
 
 const getData = (onSuccess) => {
   fetch('https://24.javascript.pages.academy/kekstagram/data')
     .then((response) => response.json())
     .then((pictures) => {
       onSuccess(pictures);
+      sortBlock.classList.remove('img-filters--inactive');
     });
 };
 
