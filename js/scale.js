@@ -8,7 +8,7 @@ const scaleControlValue = uploadForm.querySelector('.scale__control--value'); //
 const scaleValueHidden = uploadForm.querySelector('.scale__value--hidden'); // Скрытое поле значения
 
 // Масштабирование загружаемого изображения
-const scaleSmaller = () => {
+const onScaleSmallerClick = () => {
   if (scaleControlValue.value !== '25%') {
     scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) - 25}%`;
   }
@@ -25,7 +25,7 @@ const scaleSmaller = () => {
   }
 };
 
-const scaleBigger = () => {
+const onScaleBiggerClick = () => {
   if (scaleControlValue.value !== '100%') {
     scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) + 25}%`;
   }
@@ -42,4 +42,4 @@ const scaleBigger = () => {
   }
 };
 
-export {scaleControlSmaller, scaleControlBigger, scaleSmaller, scaleBigger, scaleValueHidden, scaleControlValue};
+export {scaleControlSmaller, scaleControlBigger, onScaleSmallerClick, onScaleBiggerClick, scaleValueHidden, scaleControlValue};

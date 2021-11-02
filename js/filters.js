@@ -1,7 +1,8 @@
 const uploadForm = document.querySelector('.img-upload__form'); // Форма загрузки и редактирования изображений
 const uploadPreview = uploadForm.querySelector('.img-upload__preview > img'); // Превью загружаемого изображения
 
-const sliderElement = uploadForm.querySelector('.effect-level__slider'); // Поле для отрисовки слайдера
+const sliderElementBlock = uploadForm.querySelector('.effect-level'); // Блок со слайдером
+const sliderElement = sliderElementBlock.querySelector('.effect-level__slider'); // Поле для отрисовки слайдера
 const valueElement = uploadForm.querySelector('.effect-level__value'); // Поле значения (насыщенность)
 const effectsValueHidden = uploadForm.querySelector('.effects__value--hidden'); // Скрытое поле значения (фильтры)
 
@@ -9,7 +10,7 @@ const effectsValueHidden = uploadForm.querySelector('.effects__value--hidden'); 
 uploadPreview.classList.add('effects__preview--none');
 
 // Слайдер скрыт по умолчанию (эффект «Оригинал»)
-sliderElement.classList.add('hidden');
+sliderElementBlock.classList.add('hidden');
 
 // Слайдер инстенсивности эффектов
 noUiSlider.create(sliderElement, {
@@ -42,11 +43,11 @@ const onFilterChange = (evt) => {
 
     // Параметры слайдера при изменении эффектов
     if (evt.target.value === 'none') {
-      sliderElement.classList.add('hidden');
+      sliderElementBlock.classList.add('hidden');
       uploadPreview.style.filter = 'none';
       valueElement.value = 'none';
     } else if (evt.target.value === 'chrome') {
-      sliderElement.classList.remove('hidden');
+      sliderElementBlock.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({
         range: {
           min: 0,
@@ -61,7 +62,7 @@ const onFilterChange = (evt) => {
         valueElement.value = values[handle];
       });
     } else if (evt.target.value === 'sepia') {
-      sliderElement.classList.remove('hidden');
+      sliderElementBlock.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({
         range: {
           min: 0,
@@ -76,7 +77,7 @@ const onFilterChange = (evt) => {
         valueElement.value = values[handle];
       });
     } else if (evt.target.value === 'marvin') {
-      sliderElement.classList.remove('hidden');
+      sliderElementBlock.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({
         range: {
           min: 0,
@@ -91,7 +92,7 @@ const onFilterChange = (evt) => {
         valueElement.value = values[handle];
       });
     } else if (evt.target.value === 'phobos') {
-      sliderElement.classList.remove('hidden');
+      sliderElementBlock.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({
         range: {
           min: 0,
@@ -106,7 +107,7 @@ const onFilterChange = (evt) => {
         valueElement.value = values[handle];
       });
     } else if (evt.target.value === 'heat') {
-      sliderElement.classList.remove('hidden');
+      sliderElementBlock.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({
         range: {
           min: 1,
@@ -124,4 +125,4 @@ const onFilterChange = (evt) => {
   }
 };
 
-export {onFilterChange, uploadPreview, sliderElement, valueElement};
+export {onFilterChange, uploadPreview, sliderElementBlock, valueElement};

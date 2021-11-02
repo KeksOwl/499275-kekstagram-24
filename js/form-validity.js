@@ -1,5 +1,5 @@
 import {DESCRIPTION_MAX_LENGTH, HASHTAG_MIN_LENGTH, HASHTAG_MAX_LENGTH, HASHTAG_MAX_QUANTITY} from './data.js';
-import {scaleControlSmaller, scaleControlBigger, scaleSmaller, scaleBigger} from './scale.js';
+import {scaleControlSmaller, scaleControlBigger, onScaleSmallerClick, onScaleBiggerClick} from './scale.js';
 import {onFilterChange} from './filters.js';
 import {onPopupEscKeydown} from './form.js';
 
@@ -10,19 +10,19 @@ const uploadPreview = uploadForm.querySelector('.img-upload__preview > img'); //
 
 const hashtagPattern = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/; // Паттерн (шаблон) хэш-тегов
 const hashtagField = uploadForm.querySelector('.text__hashtags'); // Поле ввода хэш-тегов
-let hashtagArray = [];
+let hashtagsArray = [];
 
 const descriptionField = uploadForm.querySelector('.text__description'); // Поле ввода описания (комментария)
 
 // Получение массива хэш-тегов
 const getHashtagArray = () => {
-  hashtagArray = hashtagField.value.split(/\s+/);
+  hashtagsArray = hashtagField.value.toLowerCase().split(/\s+/);
 };
 
 // Проверка валидности поля ввода хэш-тегов
 const checkHashtagField = () => {
   // Проверка количества хэш-тегов
-  if (hashtagArray.length > HASHTAG_MAX_QUANTITY) {
+  if (hashtagsArray.length > HASHTAG_MAX_QUANTITY) {
     hashtagField.setCustomValidity(`Нельзя указывать более ${HASHTAG_MAX_QUANTITY} хэш-тегов`);
     hashtagField.classList.add('img-upload__error');
   } else {
@@ -30,11 +30,11 @@ const checkHashtagField = () => {
     hashtagField.classList.remove('img-upload__error');
 
     // Проверка валидности каждого хэш-тега
-    hashtagArray.forEach((value) => {
+    hashtagsArray.forEach((value) => {
       if (value.length > HASHTAG_MAX_LENGTH) {
         hashtagField.setCustomValidity(`Максимальная длина одного хэш-тега ${HASHTAG_MAX_LENGTH} символов, включая решётку`);
         hashtagField.classList.add('img-upload__error');
-      } else if (hashtagArray[0] === '') {
+      } else if (hashtagsArray[0] === '') {
         hashtagField.setCustomValidity('');
         hashtagField.classList.remove('img-upload__error');
       } else if (!hashtagPattern.test(value)) {
@@ -45,10 +45,10 @@ const checkHashtagField = () => {
         hashtagField.classList.remove('img-upload__error');
 
         // Проверка одинаковых хэш-тегов
-        for (let i = 0; i < hashtagArray.length; i++) {
-          const hashtagValue = hashtagArray[i];
+        for (let i = 0; i < hashtagsArray.length; i++) {
+          const hashtagValue = hashtagsArray[i];
           for (let j = 0; j < i; j++) {
-            if (hashtagArray[j] === hashtagValue) {
+            if (hashtagsArray[j] === hashtagValue) {
               hashtagField.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
               hashtagField.classList.add('img-upload__error');
               break;
@@ -73,7 +73,7 @@ const uploadOpen = () => {
   });
 
   // Подсказка о максимальной длине описания (комментария)
-  descriptionField.placeholder += ` (макс. длина ${DESCRIPTION_MAX_LENGTH} символов)`;
+  descriptionField.placeholder = `Ваш комментарий... (макс. длина ${DESCRIPTION_MAX_LENGTH} символов)`;
 
   descriptionField.addEventListener('input', () => {
     if (descriptionField.value.length <= DESCRIPTION_MAX_LENGTH) {
@@ -82,8 +82,8 @@ const uploadOpen = () => {
   });
 
   // Масштабирование изображения
-  scaleControlSmaller.addEventListener('click', scaleSmaller);
-  scaleControlBigger.addEventListener('click', scaleBigger);
+  scaleControlSmaller.addEventListener('click', onScaleSmallerClick);
+  scaleControlBigger.addEventListener('click', onScaleBiggerClick);
 
   // Обработчик фильтров изображения
   uploadForm.addEventListener('change', onFilterChange);

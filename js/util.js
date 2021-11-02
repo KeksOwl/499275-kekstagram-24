@@ -1,3 +1,13 @@
+// Блок с сообщением об ошибке
+const alertContainerTemplate = document.querySelector('#error')
+  .content
+  .querySelector('.error');
+
+// Блок с сообщением об успехе
+const messageContainerTemplate = document.querySelector('#success')
+  .content
+  .querySelector('.success');
+
 // Функция, возвращающая случайное целое число из переданного диапазона включительно
 const getRandomIntFromRange = (from, to) => {
   from = Math.ceil(from);
@@ -16,51 +26,78 @@ const getRandomArrayElement = (elements) => elements[getRandomIntFromRange(0, el
 // Проверка нажатия клавиши Escape
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-// Длительность сообщения
-const ALERT_SHOW_TIME = 5000;
-
 // Сообщение с ошибкой
-const showAlert = (message) => {
-  const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 100;
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.left = 0;
-  alertContainer.style.top = 0;
-  alertContainer.style.right = 0;
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = 'red';
+const showAlert = () => {
+  const alertContainer = alertContainerTemplate.cloneNode(true);
+  const alertCloseButton = alertContainer.querySelector('.error__button');
 
-  alertContainer.textContent = message;
+  alertContainer.style.zIndex = 100;
 
   document.body.append(alertContainer);
 
-  setTimeout(() => {
+  const onPopupEscKeydown = (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      // eslint-disable-next-line no-use-before-define
+      closeAlert();
+    }
+  };
+
+  const onOutBoxClick = (evt) => {
+    if (!alertContainer.querySelector('.error__inner').contains(evt.target)) {
+      evt.preventDefault();
+      // eslint-disable-next-line no-use-before-define
+      closeAlert();
+    }
+  };
+
+  const closeAlert = () => {
     alertContainer.remove();
-  }, ALERT_SHOW_TIME);
+    alertCloseButton.removeEventListener('click', closeAlert);
+    document.removeEventListener('keydown', onPopupEscKeydown);
+    document.removeEventListener('click', onOutBoxClick);
+  };
+
+  alertCloseButton.addEventListener('click', closeAlert);
+  document.addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('click', onOutBoxClick);
 };
 
 // Сообщение об успешной отправке
-const showMessage = (message) => {
-  const messageContainer = document.createElement('div');
-  messageContainer.style.zIndex = 100;
-  messageContainer.style.position = 'absolute';
-  messageContainer.style.left = 0;
-  messageContainer.style.top = 0;
-  messageContainer.style.right = 0;
-  messageContainer.style.padding = '10px 3px';
-  messageContainer.style.fontSize = '30px';
-  messageContainer.style.textAlign = 'center';
-  messageContainer.style.backgroundColor = 'green';
+const showMessage = () => {
+  const messageContainer = messageContainerTemplate.cloneNode(true);
+  const messageCloseButton = messageContainer.querySelector('.success__button');
 
-  messageContainer.textContent = message;
+  messageContainer.style.zIndex = 100;
 
   document.body.append(messageContainer);
 
-  setTimeout(() => {
+  const onPopupEscKeydown = (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      // eslint-disable-next-line no-use-before-define
+      closeMessage();
+    }
+  };
+
+  const onOutBoxClick = (evt) => {
+    if (!messageContainer.querySelector('.success__inner').contains(evt.target)) {
+      evt.preventDefault();
+      // eslint-disable-next-line no-use-before-define
+      closeMessage();
+    }
+  };
+
+  const closeMessage = () => {
     messageContainer.remove();
-  }, ALERT_SHOW_TIME);
+    messageCloseButton.removeEventListener('click', closeMessage);
+    document.removeEventListener('keydown', onPopupEscKeydown);
+    document.removeEventListener('click', onOutBoxClick);
+  };
+
+  messageCloseButton.addEventListener('click', closeMessage);
+  document.addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('click', onOutBoxClick);
 };
 
 export {getRandomIntFromRange, getRandomArrayElement, isEscapeKey, showAlert, showMessage};

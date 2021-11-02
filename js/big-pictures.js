@@ -57,7 +57,7 @@ const openBigPicture = (evt, pictures) => {
   let shownComments = SHOWN_COMMENTS_MAX; // Количество отображённых комментариев
 
   // Обработчик кнопки «загрузить ещё»
-  const showMore = () => {
+  const showMoreClickHandler = () => {
     for (let i = 1; i <= SHOWN_COMMENTS_MAX; i++) {
       if (shownComments < pictureCurrent.comments.length) {
         bigPictureCommentsItems[shownComments].classList.remove('hidden');
@@ -77,10 +77,10 @@ const openBigPicture = (evt, pictures) => {
     shownComments = pictureCurrent.comments.length;
     bigPictureCommentsCounter.textContent = `${shownComments} из ${bigPictureCommentsCount.textContent} комментариев`;
   } else if (!bigPictureCommentsLoader.classList.contains('hidden')) {
-    bigPictureCommentsLoader.addEventListener('click', showMore);
+    bigPictureCommentsLoader.addEventListener('click', showMoreClickHandler);
     bigPictureCommentsCounter.textContent = `${shownComments} из ${bigPictureCommentsCount.textContent} комментариев`;
   } else {
-    bigPictureCommentsLoader.removeEventListener('click', showMore);
+    bigPictureCommentsLoader.removeEventListener('click', showMoreClickHandler);
   }
 
   document.addEventListener('keydown', onPopupEscKeydown); // Закрытие модального окна при нажатии на ESC

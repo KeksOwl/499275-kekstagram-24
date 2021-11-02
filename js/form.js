@@ -3,8 +3,8 @@ import './scale.js';
 import './filters.js';
 import {isEscapeKey, showAlert} from './util.js';
 import {uploadForm, uploadFile, uploadPopup, uploadOpen, hashtagField, descriptionField} from './form-validity.js';
-import {scaleControlSmaller, scaleControlBigger, scaleSmaller, scaleBigger, scaleValueHidden, scaleControlValue} from './scale.js';
-import {onFilterChange, sliderElement, uploadPreview, valueElement} from './filters.js';
+import {scaleControlSmaller, scaleControlBigger, onScaleSmallerClick, onScaleBiggerClick, scaleValueHidden, scaleControlValue} from './scale.js';
+import {onFilterChange, sliderElementBlock, uploadPreview, valueElement} from './filters.js';
 import {sendData} from './api.js';
 import {FILE_TYPES} from './data.js';
 
@@ -30,7 +30,7 @@ const uploadClose = () => {
   descriptionField.value = '';
 
   // Фильтры
-  sliderElement.classList.add('hidden');
+  sliderElementBlock.classList.add('hidden');
   uploadPreview.style.filter = 'none';
   valueElement.value = 'none';
 
@@ -40,8 +40,8 @@ const uploadClose = () => {
   scaleControlValue.value = '100%';
 
   // Обработчики
-  scaleControlSmaller.removeEventListener('click', scaleSmaller);
-  scaleControlBigger.removeEventListener('click', scaleBigger);
+  scaleControlSmaller.removeEventListener('click', onScaleSmallerClick);
+  scaleControlBigger.removeEventListener('click', onScaleBiggerClick);
   uploadForm.removeEventListener('change', onFilterChange);
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
@@ -71,7 +71,7 @@ const setUserFormSubmit = (onSuccess) => {
 
     sendData(
       () => onSuccess(),
-      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      () => showAlert(),
       new FormData(evt.target),
     );
   });
