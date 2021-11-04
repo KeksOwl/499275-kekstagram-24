@@ -39,7 +39,7 @@ const showAlert = () => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       // eslint-disable-next-line no-use-before-define
-      closeAlert();
+      onCloseAlertClick();
     }
   };
 
@@ -47,18 +47,18 @@ const showAlert = () => {
     if (!alertContainer.querySelector('.error__inner').contains(evt.target)) {
       evt.preventDefault();
       // eslint-disable-next-line no-use-before-define
-      closeAlert();
+      onCloseAlertClick();
     }
   };
 
-  const closeAlert = () => {
+  const onCloseAlertClick = () => {
     alertContainer.remove();
-    alertCloseButton.removeEventListener('click', closeAlert);
+    alertCloseButton.removeEventListener('click', onCloseAlertClick);
     document.removeEventListener('keydown', onPopupEscKeydown);
     document.removeEventListener('click', onOutBoxClick);
   };
 
-  alertCloseButton.addEventListener('click', closeAlert);
+  alertCloseButton.addEventListener('click', onCloseAlertClick);
   document.addEventListener('keydown', onPopupEscKeydown);
   document.addEventListener('click', onOutBoxClick);
 };
@@ -76,7 +76,7 @@ const showMessage = () => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       // eslint-disable-next-line no-use-before-define
-      closeMessage();
+      onCloseMessageClick();
     }
   };
 
@@ -84,18 +84,18 @@ const showMessage = () => {
     if (!messageContainer.querySelector('.success__inner').contains(evt.target)) {
       evt.preventDefault();
       // eslint-disable-next-line no-use-before-define
-      closeMessage();
+      onCloseMessageClick();
     }
   };
 
-  const closeMessage = () => {
+  const onCloseMessageClick = () => {
     messageContainer.remove();
-    messageCloseButton.removeEventListener('click', closeMessage);
+    messageCloseButton.removeEventListener('click', onCloseMessageClick);
     document.removeEventListener('keydown', onPopupEscKeydown);
     document.removeEventListener('click', onOutBoxClick);
   };
 
-  messageCloseButton.addEventListener('click', closeMessage);
+  messageCloseButton.addEventListener('click', onCloseMessageClick);
   document.addEventListener('keydown', onPopupEscKeydown);
   document.addEventListener('click', onOutBoxClick);
 };
